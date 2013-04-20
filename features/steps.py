@@ -31,3 +31,21 @@ def fill_in_textfield_by_class(step, field_name, value):
         text_field = find_field_by_class(world.browser, field_name)
         text_field.clear()
         text_field.send_keys(value)
+
+@step('I should see the element with this XPATH')
+def element_with_xpath(step):
+    driver = world.browser
+    xpath = step.multiline
+    assert_true(step, is_element_present(driver, By.XPATH, xpath))
+
+@step('I should not see the element with this XPATH')
+def no_element_with_xpath(step):
+    driver = world.browser
+    xpath = step.multiline
+    assert_false(step, is_element_present(driver, By.XPATH, xpath))
+
+@step('I wait for (\d+) second')
+def wait_second(step,second):
+    time.sleep(int(second))
+
+    
