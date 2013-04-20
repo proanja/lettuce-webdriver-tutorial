@@ -1,6 +1,7 @@
 from lettuce import *
 from lettuce_webdriver.util import assert_false, assert_true
 from lettuce_webdriver.util import AssertContextManager
+from factorial_steps import *
 
 
 @step(u'I should see class "(.*?)" of element "(.*?)" id "(.*?)"')
@@ -30,25 +31,3 @@ def fill_in_textfield_by_class(step, field_name, value):
         text_field = find_field_by_class(world.browser, field_name)
         text_field.clear()
         text_field.send_keys(value)
-
-
-@step('I have the number (\d+)')
-def have_the_number(step, number):
-    world.number = int(number)
-
-@step('I compute its factorial')
-def compute_its_factorial(step):
-    world.number = factorial(world.number)
-
-@step('I see the number (\d+)')
-def check_number(step, expected):
-    expected = int(expected)
-    assert world.number == expected, \
-        "Got %d" % world.number
-
-def factorial(number):
-    number = int(number)
-    if (number == 0) or (number == 1):
-        return 1
-    else:
-        return number
